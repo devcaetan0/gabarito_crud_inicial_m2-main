@@ -1,10 +1,7 @@
 <?php
 
 include("../infra/db/connect.php");
-if (!isset($_SESSION["usuario"])) {
-    header("Location: ../index.php");
-    exit();
-}
+include("component/auth.php");
 
 $id = $_GET["id"];
 

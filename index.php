@@ -2,7 +2,7 @@
 
 include("infra/db/connect.php");
 
-if($_SERVER["REQUEST_METHOD"] == "POST"){
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $usuario = $_POST["usuario"];
     $senha = $_POST["senha"];
@@ -11,13 +11,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     WHERE username = '$usuario' 
     AND password = '$senha'";
 
-    $resultado = $conn -> query($sql);
+    $resultado = $conn->query($sql);
 
-    if($resultado -> num_rows > 0){
+    if ($resultado->num_rows > 0) {
         $_SESSION["usuario"] = $usuario;
         header("Location: public/home.php");
         exit();
-    }else{
+    } else {
         $erro = "Usuário ou senha inválidos.";
     }
 }
@@ -25,36 +25,42 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 ?>
 
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        crossorigin="anonymous">
     <title>Login com PHP</title>
 </head>
-<body>
-        <?php
-            include("public/component/navbar.php");
-        ?>
-    <h2>Login com PHP</h2><form method="POST">
-        <label for="usuario">Usuario:</label>
-        <input type="text" name="usuario">
-        <br>
-        <br>
-        <label for="senha">Senha:</label>
-        <input type="password" name="senha">
-        <br>
-        <br>
-        <?php
 
-            if(isset($erro)){
+<body>
+    <?php
+    include("public/component/navbar.php");
+    ?>
+
+    <div class="d-flex justify-content-center">
+        <h2 class="p-5">Entre com sua conta</h2>
+        <form method="POST" class="d-flex">
+            <div>
+                <label for="usuario">Usuario:</label>
+                <input type="text" name="usuario">
+            </div>
+
+            <div>
+                <label for="senha">Senha:</label>
+                <input type="password" name="senha">
+            </div>
+            <?php
+
+            if (isset($erro)) {
                 echo $erro;
             }
-        ?>
-        <button type="submit">Entrar</button>
-    </form>
-    
-
-
-    
+            ?>
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
 </body>
+
 </html>
